@@ -2,7 +2,34 @@ from django.db import models
 
 
 class Robot(models.Model):
-    serial = models.CharField(max_length=5, blank=False, null=False)
-    model = models.CharField(max_length=2, blank=False, null=False)
-    version = models.CharField(max_length=2, blank=False, null=False)
-    created = models.DateTimeField(blank=False, null=False)
+    """Модель Robot (Робот)."""
+
+    serial = models.CharField(
+        max_length=5,
+        blank=False,
+        null=False,
+        default='A0001',
+        verbose_name='Серийный номер')
+    model = models.CharField(
+        max_length=2,
+        blank=False,
+        null=False,
+        verbose_name='Модель')
+    version = models.CharField(
+        max_length=2,
+        blank=False,
+        null=False,
+        verbose_name='Версия')
+    created = models.DateTimeField(
+        blank=False,
+        null=False,
+        verbose_name='Дата и время создания')
+
+    class Meta:
+        verbose_name = 'Робот'
+        verbose_name_plural = 'Роботы'
+        ordering = ('-created',)
+
+    def __str__(self):
+        return (f'Robot {self.serial}, model: {model} '
+                f'version: {version}')
