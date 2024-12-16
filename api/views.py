@@ -22,7 +22,7 @@ def get_robots_list_or_create_robot(request):
         try:
             data = json.loads(request.body)
             is_valid, error_message = validate_robot_data(data)
-            
+
             if not is_valid:
                 return JsonResponse(
                     {'error': error_message},
