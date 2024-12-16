@@ -1,10 +1,11 @@
 import http
 import json
 
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from openpyxl import Workbook
 
-from api.utils import validate_robot_data
+from api.utils import end_date, start_date, validate_robot_data
 from robots.models import Robot
 
 
@@ -46,3 +47,36 @@ def get_robots_list_or_create_robot(request):
         {'error': 'Only GET and POST requests are allowed.'},
         status=http.HTTPStatus.METHOD_NOT_ALLOWED
         )
+
+
+def get_robot_report(request):
+    """Создание Excel-файла со сводкой по суммарным показателям
+    производства роботов за последнюю неделю."""
+    robots = Robot.objects.filter(created__range=(start_date, end_date))
+    file = Workbook()
+
+    robot_sum = {}
+    for robot in robots:
+        model = robot.model
+        version = robot.version
+        if model not in robot_sum:
+            robot_sum[model] = {}
+        if version not in robot_sum[model]:
+            robot_sum[model][version] = 0
+        robot_sum[model][version] += 1
+
+    for model, versions in robot_sum.items():
+        sheet = file.create_sheet(title=f'Model {model}')
+        sheet.append(['Модель', 'Версия', 'Количество за неделю'])
+
+        for version, count in versions.items():
+            sheet.append([model, version, count])
+    if 'Sheet' in file.sheetnames:
+        del file['Sheet']
+    file_name = 'robot_report.xlsx'
+    type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    response = HttpResponse(content_type=type)
+    response['Content-Disposition'] = f'attachment; filename={file_name}'
+
+    file.save(response)
+    return response
