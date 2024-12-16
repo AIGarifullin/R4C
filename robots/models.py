@@ -31,5 +31,5 @@ class Robot(models.Model):
         ordering = ('-created',)
 
     def __str__(self):
-        return (f'Robot {self.serial}, model: {model} '
-                f'version: {version}')
+        return (f'Robot {self.serial}, model: {self.model} '
+                f'version: {self.version}')

@@ -1,5 +1,6 @@
 models_list = ['R2', '11', '12', '13', 'X5']
 
+
 def validate_robot_data(data):
     """Валидация данных о роботе."""
     required_fields = ['model', 'version', 'created']
