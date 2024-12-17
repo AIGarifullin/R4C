@@ -1,4 +1,6 @@
+from datetime import timedelta
 from django.utils import timezone
+
 
 models_list = ['R2', '11', '12', '13', 'X5']
 
@@ -15,4 +17,4 @@ def validate_robot_data(data):
 
 
 end_date = timezone.now()
-start_date = end_date - timezone.timedelta(days=7)
+start_date = end_date - timedelta(days=7)
