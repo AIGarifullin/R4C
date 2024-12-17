@@ -35,7 +35,7 @@ def get_robots_list_or_create_robot(request):
             )
             robot.save()
             return JsonResponse(
-                {'message': 'Robot created', 'robot_id': robot.id},
+                {'message': 'Robot is created', 'robot_id': robot.id},
                 status=http.HTTPStatus.CREATED
                 )
         except json.JSONDecodeError:
