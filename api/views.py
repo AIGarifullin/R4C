@@ -41,7 +41,7 @@ def get_robots_list_or_create_robot(request):
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON'},
                                 status=http.HTTPStatus.BAD_REQUEST
-            )
+                                )
     return JsonResponse(
         {'error': 'Only GET and POST requests are allowed.'},
         status=http.HTTPStatus.METHOD_NOT_ALLOWED
