@@ -72,11 +72,86 @@ python3 manage.py migrate
 Создать суперпользователя:
 
 ```
-python3 blogicum/manage.py createsuperuser
+python3 manage.py createsuperuser
 ```
 
 Запустить проект:
 
 ```
 python3 manage.py runserver
+```
+
+## Примеры запросов:
+
+### Получение списка роботов, имеющихся в наличии (GET-запрос):
+
+```
+http://127.0.0.1:8000/api/v1/robots/
+```
+
+Пример ответа:
+```json
+[    
+    {
+        "id": 1,
+        "serial": "R2-D2",
+        "model": "R2",
+        "version": "D2",
+        "created": "2020-10-05T10:59:59Z"
+    },
+    {
+        "id": 2,
+        "serial": "13-XS",
+        "model": "13",
+        "version": "XS",
+        "created": "2021-12-25T08:46:00Z"
+    },
+    {
+        "id": 3,
+        "serial": "X5-LT",
+        "model": "X5",
+        "version": "LT",
+        "created": "2022-06-06T12:05:10Z"
+    }
+]
+```
+
+### Получение информации о роботе по ID (GET-запрос):
+
+```
+http://127.0.0.1:8000/api/v1/robots/1/
+```
+
+Пример ответа:
+```json
+{
+    "id": 1,
+    "serial": "R2-D2",
+    "model": "R2",
+    "version": "D2",
+    "created": "2020-10-05T10:59:59Z"
+}
+```
+
+### Создание робота (POST-запрос):
+
+```
+http://127.0.0.1:8000/api/v1/robots/
+```
+
+Пример запроса:
+```json
+{
+    "model":"R2",
+    "version":"D3",
+    "created":"2024-12-10 10:10:00"
+}
+```
+
+Пример ответа:
+```json
+{
+    "message": "Robot is created",
+    "robot_id": 4
+}
 ```
