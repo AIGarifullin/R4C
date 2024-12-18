@@ -8,7 +8,7 @@ class Robot(models.Model):
         max_length=5,
         blank=False,
         null=False,
-        default='R2_D2',    # model_version
+        default='MR-VR',    # model-version of a robot
         verbose_name='Серийный номер')
     model = models.CharField(
         max_length=2,
