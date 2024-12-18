@@ -163,7 +163,7 @@ http://127.0.0.1:8000/api/v1/robot-report/
 ```
 
 Пример ответа:
-![Сохранение файла robot_report.xlsx.](media/photo.png)
+![Сохранение файла robot_report.xlsx.](https://github.com/AIGarifullin/R4C/blob/feature/task_3/media/robots_report.png)
 
 ### Получение списка заказов (GET-запрос):
 
