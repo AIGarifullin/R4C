@@ -34,7 +34,7 @@ def get_robots_list_or_create_robot(request):
                     status=http.HTTPStatus.BAD_REQUEST
                     )
             robot = Robot(
-                serial=data['serial'],
+                serial=f"{data['model']}-{data['version']}",
                 model=data['model'],
                 version=data['version'],
                 created=data['created'],
@@ -51,6 +51,25 @@ def get_robots_list_or_create_robot(request):
     return JsonResponse(
         {'error': 'Only GET and POST requests are allowed.'},
         status=http.HTTPStatus.METHOD_NOT_ALLOWED
+        )
+
+
+def get_robot(request, robot_id):
+    """Получение робота по ID."""
+    try:
+        robot = Robot.objects.get(id=robot_id)
+        response = {
+            'id': robot.id,
+            'serial': robot.serial,
+            'model': robot.model,
+            'version': robot.version,
+            'created': robot.created
+        }
+        return JsonResponse(response)
+    except Robot.DoesNotExist:
+        return JsonResponse(
+            {'error': 'The robot was not found.'},
+            status=http.HTTPStatus.NOT_FOUND
         )
 
 
@@ -144,4 +163,21 @@ def get_orders_list_or_create_order(request):
     return JsonResponse(
         {'error': 'Only GET and POST requests are allowed.'},
         status=http.HTTPStatus.METHOD_NOT_ALLOWED
+        )
+
+
+def get_order(request, order_id):
+    """Получение заказа по ID."""
+    try:
+        order = Order.objects.get(id=order_id)
+        response = {
+            'id': order.id,
+            'customer': order.customer.id,
+            'robot_serial': order.robot_serial,
+        }
+        return JsonResponse(response)
+    except Robot.DoesNotExist:
+        return JsonResponse(
+            {'error': 'The order was not found.'},
+            status=http.HTTPStatus.NOT_FOUND
         )
