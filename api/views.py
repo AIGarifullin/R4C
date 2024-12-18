@@ -49,6 +49,25 @@ def get_robots_list_or_create_robot(request):
         )
 
 
+def get_robot(request, robot_id):
+    """Получение робота по ID."""
+    try:
+        robot = Robot.objects.get(id=robot_id)
+        response = {
+            'id': robot.id,
+            'serial': robot.serial,
+            'model': robot.model,
+            'version': robot.version,
+            'created': robot.created
+        }
+        return JsonResponse(response)
+    except Robot.DoesNotExist:
+        return JsonResponse(
+            {'error': 'The robot was not found.'},
+            status=http.HTTPStatus.NOT_FOUND
+        )
+
+
 def get_robot_report(request):
     """Создание Excel-файла со сводкой по суммарным показателям
     производства роботов за последнюю неделю."""
