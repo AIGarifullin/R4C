@@ -30,6 +30,7 @@ def get_robots_list_or_create_robot(request):
                     status=http.HTTPStatus.BAD_REQUEST
                     )
             robot = Robot(
+                serial=f"{data['model']}-{data['version']}",
                 model=data['model'],
                 version=data['version'],
                 created=data['created'],
