@@ -17,4 +17,3 @@ def validate_robot_data(data):
     if data['model'] not in models_list:
         return False, f'Not existing model {data["model"]}'
     return True, None
-
