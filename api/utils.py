@@ -4,6 +4,9 @@ from django.utils import timezone
 
 models_list = ['R2', '11', '12', '13', 'X5']
 
+end_date = timezone.now()
+start_date = end_date - timedelta(days=7)
+
 
 def validate_robot_data(data):
     """Валидация данных о роботе."""
@@ -15,6 +18,3 @@ def validate_robot_data(data):
         return False, f'Not existing model {data["model"]}'
     return True, None
 
-
-end_date = timezone.now()
-start_date = end_date - timedelta(days=7)
