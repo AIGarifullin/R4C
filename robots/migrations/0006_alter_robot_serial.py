@@ -14,3 +14,4 @@ class Migration(migrations.Migration):
             field=models.CharField(default='R2-D2', max_length=5, verbose_name='Серийный номер'),
         ),
     ]
+
